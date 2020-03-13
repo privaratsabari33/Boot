@@ -1,28 +1,39 @@
 package com.example.demo.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="passengerdetails")
-public class PassengerDetails {
-
+@Table(name="passenger")
+public class PassengerDetails implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4255870371871004773L;
 	@Id
-	@GeneratedValue
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long pid;
 	private String name;
 	private String gender;
-	private int age;
-	private String email;
+	private Integer age;	
 	
-	
-	public Long getId() {
-		return id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="bid")
+	private BookingInfo bookingInfo;
+
+	public Long getPid() {
+		return pid;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setPid(Long pid) {
+		this.pid = pid;
 	}
 	public String getName() {
 		return name;
@@ -36,24 +47,20 @@ public class PassengerDetails {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
-	public String getEmail() {
-		return email;
+	
+	public BookingInfo getBookingInfo() {
+		return bookingInfo;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	@Override
-	public String toString() {
-		return "PassengerDetails [id=" + id + ", name=" + name + ", gender=" + gender + ", age=" + age + ", email="
-				+ email + "]";
+	public void setBookingInfo(BookingInfo bookingInfo) {
+		this.bookingInfo = bookingInfo;
 	}
 	
-	
+
 	
 }
